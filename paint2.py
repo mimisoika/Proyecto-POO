@@ -30,18 +30,28 @@ def linea_h():
 
 def linea_v():
     for i in range(0,100):
-        surface.set_at((100, 200 + i), color)
+        surface.set_at((200, 100 + i), color)
+    pygame.display.flip()
+
+def triangulo():
+    linea_h()
+    linea_v()
+    # Dibujar la diagonal del triángulo
+    for i in range(0, 100):
+        surface.set_at((200 + i, 100 + i), color)
     pygame.display.flip()
     
 
 
-myfile = open("comandos.cmd", "r")
+myfile = open("comando.cmd", "r")
 for cmd in myfile:
     cmd = cmd.strip()
     if cmd == "linea -h":
         linea_h()
     if cmd == "linea -v":
         linea_v()
+    if cmd == "triangulo":
+        triangulo()
     print(f"-{cmd}-")
 myfile.close()
 
