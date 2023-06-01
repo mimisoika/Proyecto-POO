@@ -1,18 +1,27 @@
 import pygame
-import random
 import sys
+from pygame.locals import *
 
-# Inicializar Pygame
 pygame.init()
 
-# Crear una superficie de 800x600 píxeles, no debe cambiar esta superficie
+
+# set up the window
 width = 800 
 height = 600
+
 surface = pygame.display.set_mode((width, height))
+
 background_color = (255,23,100)
-surface.fill(background_color)
-# Establecer el color de un píxel en la posición (100, 200) a rojo (255, 0, 0)
-color = (255,120, 10)
+
+
+amarillo = (252,255,23)
+rojo = (255,23,23)
+naranja = (255,130,23)
+morado = (171,23,255)
+azul = (23,249,255)
+
+color = rojo
+
 def linea_h():
     for i in range(0,100):
         surface.set_at((100 + i, 200), color)
@@ -23,15 +32,20 @@ def linea_v():
     for i in range(0,100):
         surface.set_at((100, 200 + i), color)
     pygame.display.flip()
-
-# Esperar a que el usuario cierre la ventana
-while True:
-    cmd = raw_input("cmd> ")
-    print(cmd)
     
-    if cmd == "exit":
-        pygame.quit()
+
+
+myfile = open("comandos.cmd", "r")
+for cmd in myfile:
+    cmd = cmd.strip()
     if cmd == "linea -h":
         linea_h()
     if cmd == "linea -v":
         linea_v()
+    print(f"-{cmd}-")
+myfile.close()
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()

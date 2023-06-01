@@ -1,0 +1,2 @@
+linea -h
+linea -v
