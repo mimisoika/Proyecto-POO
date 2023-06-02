@@ -34,20 +34,16 @@ def camcolor_fondo(color):
     pygame.display.flip()
 
 def linea(star_x, start_y, end_x, end_y):
-    pygame.draw.line(surface, current_color, (star_x, star_y), (end_x, end_y), current_line_thickness)
+    pygame.draw.line(surface, current_color, (star_x, start_y), (end_x, end_y), current_line_thickness)
     pygame.display.flip()
 
-    drawings.append(("line", (star_x, start_y), (end_x, end_y)))
+    drawings.append(("line", star_x, start_y, end_x, end_y))
 
 def cuadrado(x, y, z):
     k = z
     pygame.draw.rect(surface, current_color, pygame.Rect(x, y, z, k), current_line_thickness)
     pygame.display.flip()
 
-    drawings.append(("square", x, y))
-
-
-    # Agregar el dibujo a la lista
     drawings.append(("square", x, y))
 
 def rectangulo(x, y, ancho, alto):
@@ -78,6 +74,15 @@ def show_menu():
     print("color_lineas")
     print("color_fondo")
     print("grosor_lineas")
+
+def menu_colores():
+    print("Colores disponible:")
+    print("1. Rojo")
+    print("2. Verde")
+    print("3. Azul")
+    print("4. Amarillo")
+    print("5. negro")
+    print("6. blanco")
 
 # Esperar a que el usuario cierre la ventana
 while True:
@@ -124,13 +129,7 @@ while True:
         triangulo(px_1, py_1, px_2, py_2, px_3, py_3)
 
     if cmd == "color_lineas":
-        print("Colores disponible para las lineas:")
-        print("1. Rojo")
-        print("2. Verde")
-        print("3. Azul")
-        print("4. Amarillo")
-        print("5. negro")
-        print("6. blanco")
+        menu_colores()
 
         color_option = input("Ingresa el numero del color que deseas para las lineas:")
 
@@ -151,13 +150,7 @@ while True:
             print("Opción inválida. Se utilizará el color predeterminado.")
     
     if cmd == "color_fondo":
-        print("Colores disponibles para el fondo:")
-        print("1. Rojo")
-        print("2. Verde")
-        print("3. Azul")
-        print("4. Amarillo")
-        print("5. Negro")
-        print("6. Blanco")
+        menu_colores()
 
 
         color_option = input("Ingresa el numero del color que deseas para el fondo:")
