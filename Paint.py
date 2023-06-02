@@ -37,7 +37,7 @@ def linea(star_x, start_y, end_x, end_y):
     pygame.draw.line(surface, current_color, (star_x, star_y), (end_x, end_y), current_line_thickness)
     pygame.display.flip()
 
-    drawings.append(("line", star_x, start_y, end_x, end_y))
+    drawings.append(("line", (star_x, start_y), (end_x, end_y)))
 
 def cuadrado(x, y, z):
     k = z
@@ -121,7 +121,7 @@ while True:
         py_2 = int(input("coordenada en el eje y punto 2: "))
         px_3 = int(input("coordenada en el eje x punto 3: "))
         py_3 = int(input("coordenada en el eje y punto 3: "))
-        linea(px_1, py_1, px_2, py_2, px_3, py_3)
+        triangulo(px_1, py_1, px_2, py_2, px_3, py_3)
 
     if cmd == "color_lineas":
         print("Colores disponible para las lineas:")
