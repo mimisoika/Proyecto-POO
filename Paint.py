@@ -4,7 +4,7 @@ import math
 # Inicializar Pygame
 pygame.init()
 
-# Crear una superficie de 800x600 píxeles, no debe cambiar esta superficie
+#Tamaño de ventana donde se visualizaran los puntos agregados por comandos
 width = 800
 height = 600
 surface = pygame.display.set_mode((width, height))
@@ -16,7 +16,9 @@ colors = {
     "rojo": (255, 0, 0),
     "verde": (0, 255, 0),
     "azul": (0, 0, 255),
-    "amarillo": (255, 255, 0)
+    "amarillo": (255, 255, 0),
+    "negro": (0, 0, 0),
+    "blanco": (254, 254, 254)
 }
 
 # Color predeterminado para el fondo
@@ -98,16 +100,17 @@ class TrianguloEscaleno(Triangulo):
         drawings.append(("triangle_scalene", self.x, self.y, self.x2, self.y2, self.x3, self.y3))
 
 
-def draw_square(x, y):
-    pygame.draw.rect(surface, current_color, pygame.Rect(x, y, 100, 100), current_line_thickness)
+def draw_square(x, y, z):
+    k = z
+    pygame.draw.rect(surface, current_color, pygame.Rect(x, y, z, k), current_line_thickness)
     pygame.display.flip()
 
     # Agregar el dibujo a la lista
     drawings.append(("square", x, y))
 
 
-def draw_rectangle(x, y):
-    pygame.draw.rect(surface, current_color, pygame.Rect(x, y, 100, 200), current_line_thickness)
+def draw_rectangle(x, y, z, k):
+    pygame.draw.rect(surface, current_color, pygame.Rect(x, y, z, k), current_line_thickness)
     pygame.display.flip()
 
     # Agregar el dibujo a la lista
@@ -191,11 +194,11 @@ def show_triangle_menu():
     print("3. Triángulo escaleno")
 
 
-# Esperar a que el usuario cierre la ventana
+# Ejecutarse hasta que el usuario cierre la ventana
 while True:
     show_menu()  # Mostrar el menú
 
-    cmd = input("Selecciona una opción (1-9), o escribe 'exit' para salir: ")
+    cmd = input("Selecciona una opción (1-9), o 'exit' para salir: ")
 
     if cmd == "exit":
         pygame.quit()
@@ -203,11 +206,15 @@ while True:
     elif cmd == "1":
         x = int(input("Ingresa la coordenada x del cuadrado: "))
         y = int(input("Ingresa la coordenada y del cuadrado: "))
-        draw_square(x, y)
+        z = int(input("Ingresa la longitud del cuadrado: "))
+        draw_square(x, y, z)
     elif cmd == "2":
         x = int(input("Ingresa la coordenada x del rectángulo: "))
         y = int(input("Ingresa la coordenada y del rectángulo: "))
-        draw_rectangle(x, y)
+        z = int(input("Ingresa el largo rectángulo: "))
+        k = int(input("Ingresa la altura del rectángulo: "))
+
+        draw_rectangle(x, y, z, k)
     elif cmd == "3":
         x = int(input("Ingresa la coordenada x del círculo: "))
         y = int(input("Ingresa la coordenada y del círculo: "))
@@ -221,10 +228,10 @@ while True:
 
         draw_circle(x, y, radius)
     elif cmd == "4":
-        x1 = int(input("Ingresa la coordenada x del punto A: "))
-        y1 = int(input("Ingresa la coordenada y del punto A: "))
-        x2 = int(input("Ingresa la coordenada x del punto B: "))
-        y2 = int(input("Ingresa la coordenada y del punto B: "))
+        x1 = int(input("Ingresa la coordenada en el eje x punto A: "))
+        y1 = int(input("Ingresa la coordenada en el eje y del punto A: "))
+        x2 = int(input("Ingresa la coordenada en el eje x del punto B: "))
+        y2 = int(input("Ingresa la coordenada en el eje y del punto B: "))
 
         draw_line(x1, y1, x2, y2)
     elif cmd == "5":
@@ -233,27 +240,27 @@ while True:
         triangle_option = input("Selecciona una opción para dibujar un triángulo (1-3): ")
 
         if triangle_option == "1":
-            x = int(input("Ingresa la coordenada x del triángulo isósceles: "))
-            y = int(input("Ingresa la coordenada y del triángulo isósceles: "))
-            base = int(input("Ingresa la base del triángulo isósceles: "))
-            height = int(input("Ingresa la altura del triángulo isósceles: "))
+            x = int(input("Ingresa la coordenada en el eje x del triángulo: "))
+            y = int(input("Ingresa la coordenada en el eje y del triángulo: "))
+            base = int(input("Ingresa la base del triángulo: "))
+            height = int(input("Ingresa la altura del triángulo: "))
 
             triangle = TrianguloIsosceles(x, y, base, height)
             triangle.draw()
         elif triangle_option == "2":
-            x = int(input("Ingresa la coordenada x del triángulo equilátero: "))
-            y = int(input("Ingresa la coordenada y del triángulo equilátero: "))
-            side = int(input("Ingresa el tamaño del lado del triángulo equilátero: "))
+            x = int(input("Ingresa la coordenada en el eje x del triángulo: "))
+            y = int(input("Ingresa la coordenada en el eje y del triángulo: "))
+            side = int(input("Ingresa el tamaño del lado del triángulo: "))
 
             triangle = TrianguloEquilatero(x, y, side)
             triangle.draw()
         elif triangle_option == "3":
-            x1 = int(input("Ingresa la coordenada x del punto A: "))
-            y1 = int(input("Ingresa la coordenada y del punto A: "))
-            x2 = int(input("Ingresa la coordenada x del punto B: "))
-            y2 = int(input("Ingresa la coordenada y del punto B: "))
-            x3 = int(input("Ingresa la coordenada x del punto C: "))
-            y3 = int(input("Ingresa la coordenada y del punto C: "))
+            x1 = int(input("Ingresa la coordenada en el eje x del punto A: "))
+            y1 = int(input("Ingresa la coordenada en el eje y del punto A: "))
+            x2 = int(input("Ingresa la coordenada en el eje x del punto B: "))
+            y2 = int(input("Ingresa la coordenada en el eje y del punto B: "))
+            x3 = int(input("Ingresa la coordenada en el eje x del punto C: "))
+            y3 = int(input("Ingresa la coordenada en el eje y del punto C: "))
 
             triangle = TrianguloEscaleno(x1, y1, x2, y2, x3, y3)
             triangle.draw()
@@ -265,8 +272,10 @@ while True:
         print("2. Verde")
         print("3. Azul")
         print("4. Amarillo")
+        print("5. negro")
+        print("6. blanco")
 
-        color_option = input("Selecciona una opción para cambiar el color (1-4): ")
+        color_option = input("Selecciona una opción para cambiar el color (1-7): ")
 
         if color_option == "1":
             current_color = colors["rojo"]
@@ -276,6 +285,11 @@ while True:
             current_color = colors["azul"]
         elif color_option == "4":
             current_color = colors["amarillo"]
+        elif color_option == "5":
+            current_color = colors["negro"]
+        elif color_option == "6":
+            current_color = colors["blanco"]
+
         else:
             print("Opción inválida. Se utilizará el color predeterminado.")
     elif cmd == "7":
@@ -284,17 +298,24 @@ while True:
         print("2. Verde")
         print("3. Azul")
         print("4. Amarillo")
+        print("5. Negro")
+        print("6. Blanco")
 
-        color_option = input("Selecciona una opción para cambiar el color de fondo (1-4): ")
+
+        color_option = input("Selecciona una opción para cambiar el color de fondo (1-6): ")
 
         if color_option == "1":
-            cambiar_fondo((255, 0, 0))
+            cambiar_fondo(colors["rojo"])
         elif color_option == "2":
-            cambiar_fondo((0, 255, 0))
+            cambiar_fondo(colors["verde"])   
         elif color_option == "3":
-            cambiar_fondo((0, 0, 255))
+            cambiar_fondo(colors["azul"])
         elif color_option == "4":
-            cambiar_fondo((255, 255, 0))
+            cambiar_fondo(colors["amarillo"])
+        elif color_option == "5":
+            cambiar_fondo(colors["negro"])
+        elif color_option == "6":
+            cambiar_fondo(colors["blanco"])
         else:
             print("Opción inválida. Se utilizará el color de fondo predeterminado.")
     elif cmd == "8":
